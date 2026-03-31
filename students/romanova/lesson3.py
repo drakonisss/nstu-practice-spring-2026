@@ -278,11 +278,11 @@ class Exercise:
         model: Layer, loss: Loss, x: np.ndarray, y: np.ndarray, lr: float, n_epoch: int, batch_size: int
     ) -> None:
         idx = np.arange(batch_size, x.shape[0], batch_size)
-        
+
         for _ in range(n_epoch):
             for x_batch, y_batch in zip(np.split(x, idx, axis=0), np.split(y, idx, axis=0), strict=True):
-                loss.forward(model.forward(x_batch), y_batch)           
+                loss.forward(model.forward(x_batch), y_batch)
                 model.backward(loss.backward())
-                
+
                 for p, g in zip(model.parameters, model.grad, strict=True):
                     p -= lr * g
